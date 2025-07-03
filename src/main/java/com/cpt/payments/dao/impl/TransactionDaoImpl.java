@@ -19,10 +19,20 @@ public class TransactionDaoImpl implements TransactionDao {
     public TransactionDTO createTransaction(TransactionDTO txnDTO) {
 
         TransactionEntity entity = modelMapper.map(txnDTO, TransactionEntity.class);
+        System.out.println(entity);
         TransactionEntity savedEntity = transactionRepository.save(entity);
 
 
         return modelMapper.map(savedEntity, TransactionDTO.class);
 
+    }
+
+    @Override
+    public TransactionDTO getTransactionById(int id) {
+       TransactionEntity entity= transactionRepository.findById(id)
+                             .orElseThrow(()->new RuntimeException("Transaction not found"));
+
+
+        return modelMapper.map(entity, TransactionDTO.class);
     }
 }

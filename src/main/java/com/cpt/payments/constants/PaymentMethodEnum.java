@@ -23,6 +23,14 @@ public enum PaymentMethodEnum {
         }
         throw new IllegalArgumentException("Invalid Payment Method: " + name);
     }
+    public static PaymentMethodEnum fromCode(int code) {
+        for (PaymentMethodEnum pm : values()) {
+            if (pm.getCode() == code) {
+                return pm;
+            }
+        }
+        throw new IllegalArgumentException("Invalid Payment Method code: " + code);
+    }
 
     public static int codeFromName(String name) {
         return fromName(name).getCode();

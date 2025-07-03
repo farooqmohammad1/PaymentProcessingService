@@ -8,6 +8,8 @@ import org.modelmapper.PropertyMap;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.util.Objects;
+
 @Configuration
 public class AppConfig {
 
@@ -35,11 +37,23 @@ public class AppConfig {
         modelMapper.addMappings(new PropertyMap<TransactionEntity, TransactionDTO>() {
             @Override
             protected void configure() {
-                using(ctx->TransactionStatusEnum.fromCode((Integer) ctx.getSource()).name())
+                when(Objects::nonNull)
+                        .using(ctx->TransactionStatusEnum.fromCode((Integer) ctx.getSource()).name())
                         .map(source.getTxnStatusId(),destination.getTxnStatus());
+                when(Objects::nonNull)
+                        .using(ctx->PaymentMethodEnum.fromCode((Integer) ctx.getSource()).name())
+                        .map(source.getPaymentMethodId(),destination.getPaymentMethod());
+                when(Objects::nonNull)
+                        .using(ctx->ProviderEnum.fromCode((Integer) ctx.getSource()).name())
+                        .map(source.getProviderId(),destination.getProviderName());
+                when(Objects::nonNull)
+
+                        .using(ctx -> PaymentProviderEnum.fromCode((Integer) ctx.getSource()).getName())
+                        .map(source.getPaymentProviderId(), destination.getPaymentType());
             }
         });
 
         return modelMapper;
     }
+
 }

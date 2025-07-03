@@ -11,8 +11,9 @@ import com.cpt.payments.service.interfaces.PaymentStatusService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-@Component
+@Service
 public class PaymentStatusServiceImpl implements PaymentStatusService {
     @Autowired
     PaymentStatusFactory pf;
@@ -26,9 +27,9 @@ public class PaymentStatusServiceImpl implements PaymentStatusService {
     public TransactionResponseDTO processStatus(TransactionDTO payment) {
 
         TransactionStatusEnum transactionStatusEnum=TransactionStatusEnum.fromName(payment.getTxnStatus());
-       PaymentStatusHandler p= pf.getHandler(transactionStatusEnum);
-       String res= p.processStatus(payment);
-          TransactionDTO savedDto=transactionDao.createTransaction(payment);
+        PaymentStatusHandler p= pf.getHandler(transactionStatusEnum);
+        String res= p.processStatus(payment);
+        TransactionDTO savedDto=transactionDao.createTransaction(payment);
         return new TransactionResponseDTO(savedDto.getId(),savedDto.getTxnStatus());
     }
 }
