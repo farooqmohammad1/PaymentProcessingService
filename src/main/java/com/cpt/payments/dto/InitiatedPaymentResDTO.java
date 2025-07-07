@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class InitiatedPaymentResDTO {
+    private String txnReference;
     private String id;
     private String url;
 

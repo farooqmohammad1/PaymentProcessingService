@@ -34,7 +34,7 @@ public class PaymentController {
         return new ResponseEntity<>(p, HttpStatus.CREATED);
     }
     //this api based on transaction id it will initiate payment request
-    @PostMapping("{id}/initiate")
+    @PostMapping("/{id}/initiate")
     public ResponseEntity<InitiatedPaymentRes> initiatePayment(@PathVariable int id, @RequestBody InitiatedPaymentReq initiatedPaymentReq){
         InitiatedPaymentReqDTO reqDTO=modelMapper.map(initiatedPaymentReq, InitiatedPaymentReqDTO.class);
         reqDTO.setId(id);

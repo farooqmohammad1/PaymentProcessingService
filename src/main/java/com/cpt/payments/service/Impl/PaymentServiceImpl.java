@@ -28,14 +28,11 @@ public class PaymentServiceImpl implements PaymentService {
         TransactionDTO txnObj= transactionDao.getTransactionById(reqDTO.getId());
         System.out.println("After fetching from DB"+txnObj);
         ProviderEnum provider=ProviderEnum.fromName(txnObj.getProviderName());
-        System.out.println("Provider"+provider);
+        System.out.println("Provider "+provider);
         ProviderHandler getProviderObj=providerHandlerFactory.getProviderHandler(provider);
-        System.out.println("getProviderObk"+getProviderObj);
-        getProviderObj.processPayment(txnObj,reqDTO);
-        InitiatedPaymentResDTO responseDTO = new InitiatedPaymentResDTO();
+        System.out.println("getProviderObk "+getProviderObj);
 
-        responseDTO.setUrl("SUCCESS"); // Or based on actual result
-
+        InitiatedPaymentResDTO responseDTO = getProviderObj.processPayment(txnObj,reqDTO);
         return responseDTO;
     }
 }

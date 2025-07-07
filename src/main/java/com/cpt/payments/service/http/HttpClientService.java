@@ -3,10 +3,11 @@ package com.cpt.payments.service.http;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
-@Service
+@Component
 @RequiredArgsConstructor
 public class HttpClientService {
 
